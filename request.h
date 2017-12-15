@@ -5,6 +5,8 @@
 
 class request {
 public:
+        request(msgid_t id, msgpack::object method, msgpack::object params);
+
         msgpack::object method();
         msgpack::object params();
 
@@ -19,31 +21,40 @@ public:
         template <typename Error, typename Result>
         void error(Error err, Result res);
 
-        template <typename Result>
-        class type;
 
 private:
         template <typename Result, typename Error>
         void call(Result &res, Error &err);
 
-        uint32_t get_msgid() const;
-        // void send_data(msgpack::sbuffer *buff);
+        msgid_t m_msgid;
+
+        msgpack::object m_method;
+        msgpack::object m_params;
 };
+
+/*
+    Pack response when function is called
+*/
+
+template <typename Result, typename Error>
+void request::call(Result &res, Error &err) {
+        msg_response<Result, Error> msgres(res, err, m_msgid);
+
+        msgpack::packer packer;
+
+        pack<msg_response<Result, Error> >()(packer, msgres);
+}
+
+/*
+    Handles results of functions
+*/
 
 template <typename Result>
-class request::type : public request {
-public:
-        type(const request &req) : request(req) {  }
+void request::result(Result res) {
+        msgpack::type::nil_t err;
 
-        void result(Result res) { request::result(res); }
-};
+        call(res, err);
+}
 
-template <>
-class request::type<void> : public request {
-public:
-        type(const request &req) : request(req) {  }
-
-        void result() { request::result_nil(); }
-};
 
 #endif

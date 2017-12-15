@@ -136,10 +136,44 @@ struct pack {
     msgpack::packer& operator()(msgpack::packer&, const T&) const;
 };
 
-template <>
-struct pack<msg_response<msgpack::object, msgpack::object> > {
+// template <>
+// struct pack<msg_response<msgpack::object, msgpack::object> > {
+//         msgpack::packer& operator()(msgpack::packer&o,
+//                                     const msg_response<msgpack::object, msgpack::object>& v)
+//         const {
+//                 o.pack_array(4);
+
+//                 // Standard for all response
+//                 o.pack_uint8(v.type);
+//                 o.pack_uint16(v.msgid);
+
+//                 // Depends on caller
+//                 o.pack(v.error);
+//                 o.pack(v.result);
+//         }
+// };
+
+// template <>
+// struct pack<msg_response<msgpack::type::nil_t, msgpack::type::nil_t> > {
+//         msgpack::packer& operator()(msgpack::packer&o,
+//                                     const msg_response<msgpack::type::nil_t, msgpack::type::nil_t>& v)
+//         const {
+//                 o.pack_array(4);
+
+//                 // Standard for all response
+//                 o.pack_uint8(v.type);
+//                 o.pack_uint16(v.msgid);
+
+//                 // Depends on caller
+//                 o.pack_nil();
+//                 o.pack_nil();
+//         }
+// };
+
+template <typename Result, typename Error>
+struct pack<msg_response<Result, Error> > {
         msgpack::packer& operator()(msgpack::packer&o,
-                                    const msg_response<msgpack::object, msgpack::object>& v)
+                                    const msg_response<Result, Error>& v)
         const {
                 o.pack_array(4);
 

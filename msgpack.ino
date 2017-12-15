@@ -4,8 +4,8 @@
 #include "context.h"
 #include "server.h"
 
-// server ser;
-msgpack::packer packer;
+server ser;
+// msgpack::packer packer;
 
 void setup() {
   // put your setup code here, to run once:
@@ -13,12 +13,12 @@ void setup() {
 }
 
 void loop() {
-  // ser.listen();
-  packer.pack_str(5);
+  ser.listen();
+  // packer.pack_str(5);
 
-  char str[5] = "hello";
+  // char str[5] = "hello";
 
-  packer.pack_str_body(&str[0], 5);
+  // packer.pack_str_body(&str[0], 5);
 
-  delay(500);
+  // delay(500);
 }

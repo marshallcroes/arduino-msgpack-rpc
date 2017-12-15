@@ -33,13 +33,17 @@ void server::on_message(const msgpack::object& data)
 
 void server::on_request(msgid_t msgid, msgpack::object method, msgpack::object params)
 {
-        char *str = (char *) malloc(sizeof(char) * method.via.str.size + 1);
-        str[method.via.str.size] = '\0';
-        memcpy(str, method.via.str.ptr, method.via.str.size);
+        // char *str = (char *) malloc(sizeof(char) * method.via.str.size + 1);
+        // str[method.via.str.size] = '\0';
+        // memcpy(str, method.via.str.ptr, method.via.str.size);
 
-        Serial.println(str);
+        // Serial.println(str);
 
-        free(str);
+        // free(str);
+
+        request req(msgid, method, params);
+
+        m_dp.dispatch(req);
 }
 
 void server::on_notify(msgpack::object method, msgpack::object params) {}
