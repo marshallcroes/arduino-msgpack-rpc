@@ -16,7 +16,7 @@ msgpack::object::~object()
         if (!ref)
                 switch (type) {
                         case msgpack::type::ARRAY : {
-                                Serial.println("dtor: arr");
+                                // Serial.println("dtor: arr");
                                 free(via.array.ptr);
                         } break;
 
@@ -25,8 +25,8 @@ msgpack::object::~object()
                         } break;
 
                         case msgpack::type::STR : {
-                                Serial.println("dtor: str");
-                                free(via.str.ptr);
+                                // Serial.println("dtor: str");
+                                free((void *) via.str.ptr);
                         } break;
 
                         default : break;

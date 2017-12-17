@@ -1,4 +1,4 @@
-#include <msgpck.h>
+// #include <msgpck.h>
 #include "pack.h"
 #include "protocol.h"
 #include "context.h"
@@ -16,9 +16,13 @@ void loop() {
   ser.listen();
   // packer.pack_str(5);
 
+	// uint64_t a = 1;
+	// uint64_t b = 2;
   // char str[5] = "hello";
 
   // packer.pack_str_body(&str[0], 5);
+	// packer.pack(static_cast<uint32_t>(a));
+	// Serial.println();
 
   // delay(500);
 }

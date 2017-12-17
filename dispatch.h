@@ -10,7 +10,7 @@ public:
 private:
         void add(request req);
 
-        long hash(const char* entry);
+        uint8_t hash(const char* entry);
 };
 
 #endif

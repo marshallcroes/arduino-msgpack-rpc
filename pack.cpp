@@ -165,6 +165,7 @@ msgpack::packer& msgpack::packer::pack_uint16(uint16_t d)
 
 msgpack::packer& msgpack::packer::pack_uint32(uint32_t d)
 {
+
         if (d < (1 << 16)) {
                 return pack_uint16(static_cast<uint16_t>(d));
         }
