@@ -91,7 +91,8 @@ void detail::parse_array::operator()(uint32_t n, msgpack::object &o) const
                 static_cast<msgpack::object *>(malloc(size));
 }
 
-void detail::parse_array_item(msgpack::object &c, msgpack::object const &o)
+// TODO: implement copy assignment
+void detail::parse_array_item(msgpack::object &c, const msgpack::object &o)
 {
         // c.via.array.ptr[c.via.array.size++] = o;
 
@@ -126,7 +127,7 @@ void detail::parse_str(const char *p, uint32_t l, msgpack::object &o)
         // o.via.str.ptr = p;
 
         o.via.str.ptr = (char *) malloc(sizeof(char) * l);
-        memcpy(o.via.str.ptr,  p, l);
+        memcpy((void *) o.via.str.ptr,  p, l);
 
         o.via.str.size = l;
 }

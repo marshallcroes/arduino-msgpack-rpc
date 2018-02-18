@@ -2,9 +2,8 @@
 
 void server::listen()
 {
-        detail::context ctx;
-
         if (Serial.available() > 0) {
+                detail::context ctx;
                 ctx.execute();
 
                 on_message(ctx.data());
