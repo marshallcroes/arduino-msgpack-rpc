@@ -1,8 +1,9 @@
+// -*-CPP-*- vim: syntax=cpp
 #ifndef MSGPACK_OBJECT_H__
 #define MSGPACK_OBJECT_H__
 
 // #include <cstdint>
-#include "Arduino.h"
+/* #include "Arduino.h" */
 #include "type.h"
 
 namespace msgpack {
